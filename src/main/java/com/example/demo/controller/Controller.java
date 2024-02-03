@@ -49,12 +49,12 @@ public class Controller {
                 .add("username", "test")
                 .add("password", "test")
                 .build();
- /*       RequestBody requestBody = (RequestBody) okhttp3.RequestBody.create(MediaType.parse("application/json"), userJson);
+
         Request request = new Request.Builder()
                 .url(createUserEndpoint)
-                .post((okhttp3.RequestBody) requestBody)
+                .post(formBody)
                 .build();
-*/
+
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
                 return response.body().string();
