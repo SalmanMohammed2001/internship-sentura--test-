@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 
+import static org.apache.el.lang.ELArithmetic.add;
+
 @RestController
 @RequestMapping("/weavy")
 public class Controller {
@@ -34,19 +36,25 @@ public class Controller {
     }
 
     @PostMapping("/createUser")
-    public String createUser(@RequestBody String userJson) {
+    public String createUser() {
         OkHttpClient client = new OkHttpClient();
 
 
         String createUserEndpoint = "https://e21551da9c4548579344e75c1b8a2682.weavy.io";
 
 
-        RequestBody requestBody = (RequestBody) okhttp3.RequestBody.create(MediaType.parse("application/json"), userJson);
+
+
+        FormBody formBody = new FormBody.Builder()
+                .add("username", "test")
+                .add("password", "test")
+                .build();
+ /*       RequestBody requestBody = (RequestBody) okhttp3.RequestBody.create(MediaType.parse("application/json"), userJson);
         Request request = new Request.Builder()
                 .url(createUserEndpoint)
                 .post((okhttp3.RequestBody) requestBody)
                 .build();
-
+*/
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
                 return response.body().string();
