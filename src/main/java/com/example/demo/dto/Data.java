@@ -46,10 +46,6 @@ public class Data {
     private String avatarUrl;
 
 
-    private List< Object> metadata;
-
-
-    private List<String> tags;
 
 
     private String presence;
@@ -69,7 +65,7 @@ public class Data {
     public Data() {
     }
 
-    public Data(Integer id, String uid, String displayName, String email, String givenName, String middleName, String name, String familyName, String nickname, String phoneNumber, String comment, Integer directoryId, Integer pictureId, String avatarUrl, List<Object> metadata, List<String> tags, String presence, String createdAt, String modifiedAt, boolean isSuspended, boolean isTrashed) {
+    public Data(Integer id, String uid, String displayName, String email, String givenName, String middleName, String name, String familyName, String nickname, String phoneNumber, String comment, Integer directoryId, Integer pictureId, String avatarUrl, String presence, String createdAt, String modifiedAt, boolean isSuspended, boolean isTrashed) {
         this.id = id;
         this.uid = uid;
         this.displayName = displayName;
@@ -84,8 +80,7 @@ public class Data {
         this.directoryId = directoryId;
         this.pictureId = pictureId;
         this.avatarUrl = avatarUrl;
-        this.metadata = metadata;
-        this.tags = tags;
+
         this.presence = presence;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
@@ -205,21 +200,9 @@ public class Data {
         this.avatarUrl = avatarUrl;
     }
 
-    public List<Object> getMetadata() {
-        return metadata;
-    }
 
-    public void setMetadata(List<Object> metadata) {
-        this.metadata = metadata;
-    }
 
-    public List<String> getTags() {
-        return tags;
-    }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
 
     public String getPresence() {
         return presence;

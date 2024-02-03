@@ -1,46 +1,15 @@
 package com.example.demo.controller;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.example.demo.dto.Data;
+import okhttp3.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/weavy")
 public class Controller {
-
-
-
-    @PostMapping("/createUser")
-    public String createUser(@RequestBody String userJson) {
-        OkHttpClient client = new OkHttpClient();
-
-
-        String createUserEndpoint = "https://your-weavy-cloud-endpoint.com/api/createUser";
-
-        RequestBody requestBody = (RequestBody) okhttp3.RequestBody.create(MediaType.parse("application/json"), userJson);
-
-        Request request = new Request.Builder()
-                .url(createUserEndpoint)
-                .post((okhttp3.RequestBody) requestBody)
-                .build();
-
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                return response.body().string();
-            } else {
-                return "Failed to create user in Weavy Cloud";
-            }
-        } catch (Exception e) {
-            return "Error: " + e.getMessage();
-        }
-    }
-
-
-
-
-
 
     @GetMapping("/getData")
     public String getDataFromWeavy() {
@@ -63,4 +32,56 @@ public class Controller {
             return "Error: " + e.getMessage();
         }
     }
+
+    @PostMapping("/createUser")
+    public String createUser(@RequestBody String userJson) {
+        OkHttpClient client = new OkHttpClient();
+
+
+        String createUserEndpoint = "https://e21551da9c4548579344e75c1b8a2682.weavy.io";
+
+
+        RequestBody requestBody = (RequestBody) okhttp3.RequestBody.create(MediaType.parse("application/json"), userJson);
+        Request request = new Request.Builder()
+                .url(createUserEndpoint)
+                .post((okhttp3.RequestBody) requestBody)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                return response.body().string();
+            } else {
+                return "Failed to create user in Weavy Cloud";
+            }
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+
+    @PutMapping("/updateUser/{userId}")
+    public String updateUser(@PathVariable Long userId, @RequestBody String updatedUserData) {
+        OkHttpClient client = new OkHttpClient();
+
+
+        String updateUserEndpoint = "https://e21551da9c4548579344e75c1b8a2682.weavy.io" + userId;
+
+        RequestBody requestBody = (RequestBody) okhttp3.RequestBody.create(MediaType.parse("application/json"), updatedUserData);
+        Request request = new Request.Builder()
+                .url(updateUserEndpoint)
+                .put((okhttp3.RequestBody) requestBody)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                return response.body().string();
+            } else {
+                return "Failed to update user in Weavy Cloud";
+            }
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+
 }
